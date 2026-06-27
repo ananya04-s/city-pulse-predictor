@@ -1,205 +1,337 @@
-# SMART TRAFFIC
+# 🚦 Smart Traffic - Urban Traffic Prediction using Machine Learning
 
-**Urban Traffic Prediction using Machine Learning**
+![Python](https://img.shields.io/badge/Python-3.11-blue)
+![FastAPI](https://img.shields.io/badge/FastAPI-Backend-green)
+![React](https://img.shields.io/badge/React-Frontend-61DAFB)
+![Machine Learning](https://img.shields.io/badge/ML-LightGBM-orange)
+![License](https://img.shields.io/badge/License-MIT-red)
 
-SMART TRAFFIC is an end-to-end ML system that forecasts urban traffic
-congestion from historical sensor readings, weather, holidays and time-of-day
-features. It ships with a glassmorphism React dashboard, an interactive
-sensor map, a SHAP-style explainable prediction panel, and a FastAPI +
-LightGBM backend.
+A full-stack Machine Learning application that predicts urban traffic congestion using historical traffic patterns, weather conditions, holidays, and time-based features.
 
-![SMART TRAFFIC Dashboard](docs/screenshot-dashboard.png)
-
----
-
-## Highlights
-
-- **Live glass dashboard** — hourly / weekly / monthly / weather charts,
-  congestion heatmap, correlation matrix, residual plot, feature importance,
-  model comparison.
-- **Interactive Leaflet map** of the sensor network with congestion-coloured
-  nodes.
-- **Prediction panel** with sliders for temperature, rain, snow, clouds and
-  selectors for weather, weekday, month, hour and holiday flag. Returns
-  predicted volume, congestion level (Low / Medium / High / Very High),
-  confidence score and per-feature contributions (SHAP-style).
-- **Prediction history** stored locally, with search, pagination, CSV and PDF
-  export.
-- **Full ML pipeline** — feature engineering, normalisation, multi-model
-  training (Linear, Decision Tree, Random Forest, Gradient Boosting,
-  **XGBoost**, **LightGBM**), automatic best-model selection by RMSE/MAE/R²,
-  joblib persistence.
-- **FastAPI backend** with `/dashboard`, `/predict`, `/history`, `/upload`,
-  `/retrain` endpoints, SQLite persistence and a synthetic-data fallback when
-  no CSV is uploaded.
-- **Docker** ready.
-- **Dark / Light mode**, framer-motion animations, fully responsive.
+The project combines **React**, **FastAPI**, **LightGBM**, **SQLite**, **Leaflet Maps**, and **Recharts** to provide an interactive dashboard for traffic forecasting and analytics.
 
 ---
 
-## Architecture
+## 📸 Preview
 
-```text
-┌──────────────┐    HTTP/JSON     ┌──────────────────────┐
-│  React SPA   │  ─────────────▶  │   FastAPI (Python)   │
-│  TanStack    │                  │  ML pipeline + SQLite │
-│  + Recharts  │  ◀─────────────  │   LightGBM / XGB     │
-│  + Leaflet   │   predictions    └──────────┬───────────┘
-└──────────────┘                              │
-                                              ▼
-                                ┌─────────────────────────┐
-                                │  joblib model artefact  │
-                                │  + smart_traffic.db      │
-                                └─────────────────────────┘
+> Add screenshots here
+
+Dashboard | Prediction | Analytics | History
+
+---
+
+# ✨ Features
+
+### 🚦 Traffic Prediction
+- Predict traffic volume
+- Congestion level detection
+- Confidence score
+- Real-time prediction
+
+### 📊 Interactive Dashboard
+- Traffic analytics
+- Hourly traffic trends
+- Weekly reports
+- Monthly reports
+- Peak hour visualization
+- Weather impact analysis
+
+### 🧠 Machine Learning
+- Data preprocessing
+- Feature engineering
+- Model training
+- Model comparison
+- Automatic prediction
+- Model retraining
+
+### 🗺 Interactive Maps
+- Leaflet integration
+- Traffic hotspot visualization
+- Congestion markers
+- Location insights
+
+### 📈 Visual Analytics
+- Line Charts
+- Area Charts
+- Bar Charts
+- Pie Charts
+- Heatmaps
+- Correlation Matrix
+- Feature Importance
+- Model Comparison
+
+### 📂 Dataset Management
+- Upload CSV
+- Validate data
+- Automatic preprocessing
+- Generate synthetic data
+- Export processed dataset
+
+### 📜 Prediction History
+- Search predictions
+- Filter records
+- Export CSV
+- Export PDF
+
+### 🎨 Modern UI
+- Glassmorphism
+- Responsive Design
+- Dark / Light Theme
+- Smooth animations
+- Mobile Friendly
+
+---
+
+# 🏗 Project Architecture
+
+```
+React Frontend
+       │
+       ▼
+ FastAPI Backend
+       │
+       ▼
+ Machine Learning Engine
+       │
+       ▼
+SQLite Database + Trained Model
 ```
 
 ---
 
-## Tech Stack
+# 🛠 Tech Stack
 
-| Layer    | Tools                                                   |
-| -------- | ------------------------------------------------------- |
-| Frontend | React 19, TypeScript, Tailwind CSS v4, Framer Motion    |
-| Charts   | Recharts                                                |
-| Map      | Leaflet                                                 |
-| Backend  | FastAPI, Pydantic, Python 3.11                          |
-| ML       | Pandas, NumPy, scikit-learn, XGBoost, LightGBM, joblib  |
-| Database | SQLite                                                  |
-| Deploy   | Docker, docker-compose                                  |
+## Frontend
+
+- React
+- TypeScript
+- Tailwind CSS
+- Recharts
+- Leaflet Maps
+- Framer Motion
+
+## Backend
+
+- FastAPI
+- Python
+- SQLite
+- SQLAlchemy
+
+## Machine Learning
+
+- Pandas
+- NumPy
+- Scikit-Learn
+- LightGBM
+- XGBoost
+- Joblib
 
 ---
 
-## Project layout
+# 📂 Project Structure
 
-```text
+```
 smart-traffic/
-├─ src/                       # React + TanStack Start frontend
-│  ├─ routes/                 # /, /predict, /history, /about
-│  ├─ components/             # AppShell, GlassCard, PredictionForm, TrafficMap, charts/
-│  └─ lib/                    # traffic-model.ts, traffic-data.ts, storage.ts
-├─ backend/
-│  ├─ main.py                 # FastAPI entry
-│  ├─ database.py             # SQLite helpers
-│  ├─ ml/
-│  │  ├─ dataset.py           # synthetic data generator
-│  │  └─ pipeline.py          # feature engineering, multi-model training, inference
-│  ├─ models/                 # serialised best model (created on first run)
-│  ├─ dataset/                # uploaded CSVs land here
-│  ├─ requirements.txt
-│  └─ Dockerfile
-├─ docker-compose.yml
-└─ README.md
+
+├── frontend/
+│   ├── src/
+│   ├── components/
+│   ├── pages/
+│   ├── hooks/
+│   ├── services/
+│   └── assets/
+│
+├── backend/
+│   ├── api/
+│   ├── ml/
+│   ├── models/
+│   ├── dataset/
+│   ├── database.py
+│   ├── main.py
+│   └── requirements.txt
+│
+├── Dockerfile
+├── docker-compose.yml
+├── README.md
+└── LICENSE
 ```
 
 ---
 
-## Installation
+# 📊 Machine Learning Pipeline
 
-### 1 · Frontend
+1. Load Dataset
+2. Data Cleaning
+3. Handle Missing Values
+4. Remove Duplicates
+5. Feature Engineering
+6. Encode Categorical Features
+7. Train ML Models
+8. Evaluate Performance
+9. Save Best Model
+10. Predict Traffic Volume
+
+---
+
+# 📈 Models Used
+
+- Linear Regression
+- Decision Tree
+- Random Forest
+- Gradient Boosting
+- XGBoost
+- LightGBM ✅ (Best Model)
+
+Evaluation Metrics
+
+- RMSE
+- MAE
+- R² Score
+
+---
+
+# 🎯 Input Features
+
+- Temperature
+- Rain
+- Snow
+- Clouds
+- Weather Condition
+- Holiday
+- Hour
+- Day
+- Month
+- Weekday
+
+---
+
+# 📤 Output
+
+- Predicted Traffic Volume
+- Congestion Level
+
+```
+🟢 Low
+
+🟡 Medium
+
+🟠 High
+
+🔴 Very High
+```
+
+Confidence Score
+
+---
+
+# 🚀 Installation
+
+Clone Repository
 
 ```bash
-bun install        # or: npm install / pnpm install
-bun dev            # starts the dashboard on http://localhost:8080
+git clone https://github.com/yourusername/smart-traffic.git
+
+cd smart-traffic
 ```
 
-### 2 · Backend
+Backend
 
 ```bash
 cd backend
-python -m venv .venv && source .venv/bin/activate
+
 pip install -r requirements.txt
 
-# Train on synthetic data and serialise the best model
-python -m backend.ml.pipeline
-
-# Run the API
-uvicorn backend.main:app --reload --port 8000
+uvicorn main:app --reload
 ```
 
-### 3 · Docker (one-shot)
+Frontend
 
 ```bash
-docker compose up --build
-# API ready on http://localhost:8000
+cd frontend
+
+npm install
+
+npm run dev
 ```
 
 ---
 
-## Dataset
-
-Out of the box, the backend generates a realistic synthetic dataset (twin
-rush-hour curve, weather penalties, weekend dampening, seasonal cycle). To
-use a real dataset, POST a CSV to `/upload` with the columns:
-
-```text
-timestamp, temperature, rain, snow, clouds, holiday, weather, traffic_volume
-```
-
-then call `POST /retrain` to refit and re-evaluate all models.
-
-The frontend dashboard works fully offline — it uses a deterministic
-in-browser heuristic model so the demo is interactive without a backend.
-
----
-
-## API
-
-| Method | Endpoint     | Purpose                                        |
-| ------ | ------------ | ---------------------------------------------- |
-| GET    | `/dashboard` | KPIs + recent rows                             |
-| POST   | `/predict`   | Run inference (JSON body, see `PredictRequest`)|
-| GET    | `/history`   | Paginated prediction log                       |
-| POST   | `/upload`    | Upload a CSV dataset (multipart)               |
-| POST   | `/retrain`   | Retrain all models from the latest dataset     |
-
-Example:
+# 🐳 Docker
 
 ```bash
-curl -X POST http://localhost:8000/predict \
-  -H "Content-Type: application/json" \
-  -d '{"temperature":18,"rain":0,"snow":0,"clouds":30,"holiday":false,
-       "weather":"Clear","hour":8,"weekday":1,"month":6}'
+docker-compose up --build
 ```
 
 ---
 
-## Results (representative training run)
+# 📷 Dashboard Modules
 
-| Model              | RMSE | MAE | R²   |
-| ------------------ | ---: | --: | ---: |
-| Linear Regression  | 612  | 481 | 0.71 |
-| Decision Tree      | 498  | 372 | 0.81 |
-| Random Forest      | 384  | 281 | 0.89 |
-| Gradient Boosting  | 352  | 258 | 0.91 |
-| XGBoost            | 318  | 234 | 0.93 |
-| **LightGBM**       | **307** | **225** | **0.94** |
-
-LightGBM is selected automatically and serialised to
-`backend/models/best_model.joblib`.
+- Dashboard
+- Traffic Prediction
+- Analytics
+- History
+- About
 
 ---
 
-## Screenshots
+# 📁 Dataset
 
-| Dashboard                      | Prediction                        | History                       |
-| ------------------------------ | --------------------------------- | ----------------------------- |
-| `docs/screenshot-dashboard.png`| `docs/screenshot-predict.png`     | `docs/screenshot-history.png` |
+Recommended Dataset
 
-(Capture them from the running app and drop into `docs/`.)
+Metro Interstate Traffic Volume Dataset
 
----
+Contains
 
-## Future improvements
-
-- Real-time data ingestion via Kafka / WebSockets
-- Per-intersection models (multi-output)
-- True SHAP explanations (currently approximated with feature contributions)
-- Traffic incident overlay on the Leaflet map
-- Production-grade auth and rate limiting on the API
-- Optional Postgres / TimescaleDB backend
+- Weather
+- Holidays
+- Date & Time
+- Traffic Volume
+- Cloud Cover
+- Rain
+- Snow
+- Temperature
 
 ---
 
-## License
+# 🔮 Future Improvements
 
-MIT © SMART TRAFFIC contributors
+- Live Google Maps Traffic
+- Real-time Sensor Integration
+- AI Route Optimization
+- Accident Prediction
+- Smart Signal Timing
+- Mobile App
+- Deep Learning Models
+- IoT Traffic Monitoring
+
+---
+
+# 👨‍💻 Author
+
+**Ananya S**
+
+Bachelor of Engineering
+
+Artificial Intelligence & Machine Learning
+
+---
+
+# ⭐ Support
+
+If you found this project helpful,
+
+⭐ Star this repository
+
+🍴 Fork the project
+
+🤝 Contribute to improvements
+
+---
+
+## 📜 License
+
+This project is licensed under the MIT License.
+
+---
+
+**Built with ❤️ using React, FastAPI, Machine Learning, and Data Analytics.**
