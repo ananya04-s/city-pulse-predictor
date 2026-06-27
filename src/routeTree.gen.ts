@@ -9,11 +9,17 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PredictRouteImport } from './routes/predict'
 import { Route as HistoryRouteImport } from './routes/history'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PredictRoute = PredictRouteImport.update({
   id: '/predict',
   path: '/predict',
@@ -40,12 +46,14 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/history': typeof HistoryRoute
   '/predict': typeof PredictRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/history': typeof HistoryRoute
   '/predict': typeof PredictRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +61,14 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/history': typeof HistoryRoute
   '/predict': typeof PredictRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/history' | '/predict'
+  fullPaths: '/' | '/about' | '/history' | '/predict' | '/sitemap.xml'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/history' | '/predict'
-  id: '__root__' | '/' | '/about' | '/history' | '/predict'
+  to: '/' | '/about' | '/history' | '/predict' | '/sitemap.xml'
+  id: '__root__' | '/' | '/about' | '/history' | '/predict' | '/sitemap.xml'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,10 +76,18 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   HistoryRoute: typeof HistoryRoute
   PredictRoute: typeof PredictRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/predict': {
       id: '/predict'
       path: '/predict'
@@ -107,6 +124,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   HistoryRoute: HistoryRoute,
   PredictRoute: PredictRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
